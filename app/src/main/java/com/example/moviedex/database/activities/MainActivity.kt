@@ -7,9 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.moviedex.R
+import com.example.moviedex.database.AppConstants
+import com.example.moviedex.database.entities.Movie
 import com.example.moviedex.database.fragments.MainContentFragment
 import com.example.moviedex.database.fragments.MainListFragment
+import com.google.gson.Gson
 import org.json.JSONObject
 import java.io.IOException
 
@@ -54,7 +58,7 @@ class MainActivity : AppCompatActivity(), MainListFragment.SearchNewMovieListene
     }
 
     override fun searchMovie(movieName: String) {
-        FetchMovie().execute(movieName)
+        //FetchMovie().execute(movieName)
     }
 
     override fun managePortraitItemClick(movie: Movie) {
@@ -70,36 +74,4 @@ class MainActivity : AppCompatActivity(), MainListFragment.SearchNewMovieListene
         changeFragment(R.id.land_main_cont_fragment, mainContentFragment)
     }
 
-    private inner class FetchMovie : AsyncTask<String, Void, String>() {
-
-        override fun doInBackground(vararg params: String): String {
-
-            if (params.isNullOrEmpty()) return ""
-
-            val movieName = params[0]
-            val movieUrl = NetworkUtils().buildtSearchUrl(movieName)
-
-            return try {
-                NetworkUtils().getResponseFromHttpUrl(movieUrl)
-            } catch (e: IOException) {
-                ""
-            }
-        }
-
-        override fun onPostExecute(movieInfo: String) {
-            super.onPostExecute(movieInfo)
-            if (!movieInfo.isEmpty()) {
-                val movieJson = JSONObject(movieInfo)
-                if (movieJson.getString("Response") == "True") {
-                    val movie = Gson().fromJson<Movie>(movieInfo, Movie::class.java)
-                    addMovieToList(movie)
-                } else {
-                    Toast.makeText(this@MainActivity, "No existe en la base de datos,", Toast.LENGTH_LONG).show()
-                }
-            }else
-            {
-                Toast.makeText(this@MainActivity, "A ocurrido un error,", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
 }

@@ -3,8 +3,10 @@ package com.example.moviedex.database.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.example.moviedex.R
+import com.example.moviedex.database.entities.Movie
 import kotlinx.android.synthetic.main.activity_movie_viewer.*
 
 class MovieViewerActivity: AppCompatActivity() {
@@ -12,7 +14,7 @@ class MovieViewerActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_viewer)
 
-        setSupportActionBar(toolbarviewer)
+        setSupportActionBar(toolbarviewer as Toolbar?)
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //supportActionBar?.setDisplayShowHomeEnabled(true)
         collapsingtoolbarviewer.setExpandedTitleTextAppearance(R.style.ExpandedAppBar)
@@ -27,7 +29,7 @@ class MovieViewerActivity: AppCompatActivity() {
             .load(movie.Poster)
             .placeholder(R.drawable.ic_launcher_background)
             .into(app_bar_image_viewer)
-        collapsingtoolbarviewer.title = movie.Title
+        collapsingtoolbarviewer.accessibilityPaneTitle = movie.Title
         app_bar_rating_viewer.text = movie.imdbRating
         plot_viewer.text = movie.Plot
         director_viewer.text = movie.Director

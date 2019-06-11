@@ -11,6 +11,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.moviedex.R
+import com.example.moviedex.database.AppConstants
+import com.example.moviedex.database.MyMovieAdapter
+import com.example.moviedex.database.adapters.MovieAdapter
+import com.example.moviedex.database.adapters.MovieSimpleListAdapter
+import com.example.moviedex.database.entities.Movie
+import kotlinx.android.synthetic.main.fragment_main_list.*
 import kotlinx.android.synthetic.main.fragment_main_list.view.*
 
 class MainListFragment: Fragment(){
@@ -71,7 +77,7 @@ class MainListFragment: Fragment(){
 
     fun updateMoviesAdapter(movieList: ArrayList<Movie>){ moviesAdapter.changeDataSet(movieList) }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is SearchNewMovieListener) {
             listenerTool = context

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedex.R
 import com.example.moviedex.database.MyMovieAdapter
+import com.example.moviedex.database.entities.Movie
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 
 class MovieSimpleListAdapter(var movies:List<Movie>, val clickListener: (Movie) -> Unit): RecyclerView.Adapter<MovieSimpleListAdapter.ViewHolder>(),
