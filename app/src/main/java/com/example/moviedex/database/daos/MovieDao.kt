@@ -10,7 +10,7 @@ import com.example.moviedex.database.entities.Movie
 interface MovieDao {
 
     @Query("SELECT * FROM movie_table")
-    fun getAllMovies(name : String) : LiveData<List<Movie>>
+    fun getAllMovies() : LiveData<List<Movie>>
 
     @Insert
     suspend fun insert(movie : Movie)
