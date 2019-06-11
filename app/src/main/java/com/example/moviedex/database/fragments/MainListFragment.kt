@@ -45,7 +45,7 @@ class MainListFragment: Fragment(){
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_main_list, container, false)
 
-        if(savedInstanceState != null) movies = savedInstanceState.getParcelableArrayList<Movie>(AppConstants.MAIN_LIST_KEY)!!
+        // Creo que esto no funciona mas por el ROOM if(savedInstanceState != null) movies = savedInstanceState.getParcelableArrayList<Movie>(AppConstants.MAIN_LIST_KEY)!!
 
         initRecyclerView(resources.configuration.orientation, view)
         initSearchButton(view)
@@ -86,10 +86,10 @@ class MainListFragment: Fragment(){
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    /*override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelableArrayList(AppConstants.MAIN_LIST_KEY, movies)
         super.onSaveInstanceState(outState)
-    }
+    }*/ // Esto ya no se utiliza por el room
 
     override fun onDetach() {
         super.onDetach()

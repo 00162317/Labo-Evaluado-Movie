@@ -26,15 +26,15 @@ class MainActivity : AppCompatActivity(), MainListFragment.SearchNewMovieListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        movieList = savedInstanceState?.getParcelableArrayList(AppConstants.dataset_saveinstance_key) ?: ArrayList()
+        //En teoria ya no usamos parcelable movieList = savedInstanceState?.getParcelableArrayList(AppConstants.dataset_saveinstance_key) ?: ArrayList()
 
         initMainFragment()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    /*override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelableArrayList(AppConstants.dataset_saveinstance_key, movieList)
         super.onSaveInstanceState(outState)
-    }
+    }*/
 
     fun initMainFragment(){
         mainFragment = MainListFragment.newInstance(movieList)
@@ -63,8 +63,8 @@ class MainActivity : AppCompatActivity(), MainListFragment.SearchNewMovieListene
 
     override fun managePortraitItemClick(movie: Movie) {
         val movieBundle = Bundle()
-        movieBundle.putParcelable("MOVIE", movie)
-        startActivity(Intent(this, MovieViewerActivity::class.java).putExtras(movieBundle))
+        //movieBundle.putParcelable("MOVIE", movie)
+        startActivity(Intent(this, MovieViewerActivity::class.java))//.putExtras(movieBundle))
     }
 
     private fun changeFragment(id: Int, frag: Fragment){ supportFragmentManager.beginTransaction().replace(id, frag).commit() }
