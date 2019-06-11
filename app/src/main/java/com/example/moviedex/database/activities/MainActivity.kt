@@ -6,6 +6,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.moviedex.R
@@ -14,6 +15,7 @@ import com.example.moviedex.database.entities.Movie
 import com.example.moviedex.database.fragments.MainContentFragment
 import com.example.moviedex.database.fragments.MainListFragment
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_main_list.*
 import org.json.JSONObject
 import java.io.IOException
 
@@ -27,7 +29,6 @@ class MainActivity : AppCompatActivity(), MainListFragment.SearchNewMovieListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //En teoria ya no usamos parcelable movieList = savedInstanceState?.getParcelableArrayList(AppConstants.dataset_saveinstance_key) ?: ArrayList()
-
         initMainFragment()
     }
 
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity(), MainListFragment.SearchNewMovieListene
 
     fun initMainFragment(){
         mainFragment = MainListFragment.newInstance(movieList)
+
 
         val resource = if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
             R.id.main_fragment

@@ -14,7 +14,7 @@ class MovieViewerActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_viewer)
 
-        setSupportActionBar(toolbarviewer as Toolbar?)
+        setSupportActionBar(toolbarviewer)
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //supportActionBar?.setDisplayShowHomeEnabled(true)
         collapsingtoolbarviewer.setExpandedTitleTextAppearance(R.style.ExpandedAppBar)
