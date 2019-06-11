@@ -1,7 +1,8 @@
-package com.example.moviedex
+package com.example.moviedex.database.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.moviedex.R
 
 class MainActivity : AppCompatActivity() {
 
