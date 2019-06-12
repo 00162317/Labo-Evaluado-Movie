@@ -11,7 +11,8 @@ import retrofit2.Response
 
 class MovieRepository(private val movieDao:MovieDao){
     fun retrieverepoAsync(eje:String) : Deferred<Response<retrof>> {
-        val apiK = "ffb96d82"
+        //val apiK = "ffb96d82"
+        val apiK = "55b38c32"
         return retrofit.getConcidences().obtainMovies(eje,apiK)
     }
     fun getAllMovies():LiveData<List<Movie>> = movieDao.getAllMovies()

@@ -106,7 +106,8 @@ class MainListFragment: Fragment(){
     }
 
     fun initSearchButton(container:View) = container.add_movie_btn.setOnClickListener {
-        listenerTool?.searchMovie(movie_name_et_.text.toString())
+        //listenerTool?.searchMovie(movie_name_et_.text.toString())
+        movieViewModel.retrieveMovie(movie_name_et_.text.toString())
     }
 
     fun updateMoviesAdapter(movieList: ArrayList<Movie>){ moviesAdapter.changeDataSet(movieList) }
