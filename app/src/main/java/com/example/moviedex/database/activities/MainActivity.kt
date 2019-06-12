@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity(), MainListFragment.SearchNewMovieListene
         movieList.add(movie)
         mainFragment.updateMoviesAdapter(movieList)
         Log.d("Number", movieList.size.toString())
+        //e.e
     }
 
     override fun searchMovie(movieName: String) {
