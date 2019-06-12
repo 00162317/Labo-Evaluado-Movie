@@ -29,8 +29,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add"
-        />
+                android:text="Buscar"
+                android:background="@drawable/button_model"
+                android:textColor="#FFF"
+                android:drawableLeft="@drawable/ic_stat_name"/>
 
     </LinearLayout>
 
