@@ -28,7 +28,7 @@ class MovieViewModel(application: Application):AndroidViewModel(application){
 
     //TODO: Instancia
     private fun loadMovie(){
-        val peliDao = RoomDB.getDatabase(getApplication()).movieDao()
+        val peliDao = RoomDB.getDatabase(getApplication(), viewModelScope).movieDao()
 
         repoMovie = MovieRepository(peliDao)
     }

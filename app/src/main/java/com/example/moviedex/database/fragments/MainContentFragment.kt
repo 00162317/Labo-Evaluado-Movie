@@ -20,7 +20,7 @@ class MainContentFragment: Fragment() {
     companion object {
         fun newInstance(movie: Movie): MainContentFragment{
             val newFragment = MainContentFragment()
-            //newFragment.movie = movie
+            newFragment.movie = movie
             return newFragment
         }
     }

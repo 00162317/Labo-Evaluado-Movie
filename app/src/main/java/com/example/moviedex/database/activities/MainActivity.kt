@@ -65,8 +65,8 @@ class MainActivity : AppCompatActivity(), MainListFragment.SearchNewMovieListene
 
     override fun managePortraitItemClick(movie: Movie) {
         val movieBundle = Bundle()
-        //movieBundle.putParcelable("MOVIE", movie)
-        startActivity(Intent(this, MovieViewerActivity::class.java))//.putExtras(movieBundle))
+        movieBundle.putParcelable("MOVIE", movie)
+        startActivity(Intent(this, MovieViewerActivity::class.java).putExtras(movieBundle))
     }
 
     private fun changeFragment(id: Int, frag: Fragment){ supportFragmentManager.beginTransaction().replace(id, frag).commit() }

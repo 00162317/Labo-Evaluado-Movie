@@ -9,8 +9,10 @@ import com.example.moviedex.database.MyMovieAdapter
 import com.example.moviedex.database.entities.Movie
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 
-class MovieSimpleListAdapter(var movies:List<Movie>, val clickListener: (Movie) -> Unit): RecyclerView.Adapter<MovieSimpleListAdapter.ViewHolder>(),
+class MovieSimpleListAdapter(val clickListener: (Movie) -> Unit): RecyclerView.Adapter<MovieSimpleListAdapter.ViewHolder>(),
     MyMovieAdapter {
+
+    private var movies = emptyList<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_movie, parent, false)

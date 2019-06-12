@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.moviedex.R
@@ -18,12 +20,14 @@ import com.example.moviedex.database.MyMovieAdapter
 import com.example.moviedex.database.adapters.MovieAdapter
 import com.example.moviedex.database.adapters.MovieSimpleListAdapter
 import com.example.moviedex.database.entities.Movie
+import com.example.moviedex.database.viewModel.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_main_list.*
 import kotlinx.android.synthetic.main.fragment_main_list.view.*
 
 class MainListFragment: Fragment(){
 
     private lateinit var  movies :ArrayList<Movie>
+    private lateinit var movieViewModel: MovieViewModel
     private lateinit var moviesAdapter : MyMovieAdapter
     var listenerTool :  SearchNewMovieListener? = null
 
@@ -49,7 +53,13 @@ class MainListFragment: Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.fragment_main_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_main_list, container, false).apply {
+            //El contexto era el de la vista como tal, porque el contexto del fragmento si no tiene nada
+            val adapter1: ArrayAdapter<String> = ArrayAdapter(this.context, android.R.layout.simple_list_item_1, movies_prueba)
+            Log.d("Lista", movies_prueba.toString())
+            movie_name_et_.setAdapter(adapter1)
+        }
+        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
 
         //En los videos el manejo de autocompletar lo hacian en el MainActivity pero como estamos ocupando fragmentos
         // no se si eso afectara, pero por eso lo puse en el onCreateView del fragmento
@@ -57,9 +67,9 @@ class MainListFragment: Fragment(){
         //En el xml de este fragmento en ves de editText es AutoCompleteTextView y lo cambie a eso para que funcionara
         //Ya estan puestos los permisos para verificar si hay internet o no
 
-        val adapter1: ArrayAdapter<String> = ArrayAdapter(this.context, android.R.layout.simple_list_item_1, movies_prueba)
-        Log.d("Lista", movies_prueba.toString())
-        movie_name_et_.setAdapter(adapter1) //Esto da nulo :/
+        //val adapter1: ArrayAdapter<String> = ArrayAdapter(view, android.R.layout.simple_list_item_1, movies_prueba)
+        //Log.d("Lista", movies_prueba.toString())
+        //movie_name_et_.setAdapter(adapter1) //Esto da nulo :/
 
         // Creo que esto no funciona mas por el ROOM if(savedInstanceState != null) movies = savedInstanceState.getParcelableArrayList<Movie>(AppConstants.MAIN_LIST_KEY)!!
 
@@ -73,12 +83,20 @@ class MainListFragment: Fragment(){
         val linearLayoutManager = LinearLayoutManager(this.context)
 
         if(orientation == Configuration.ORIENTATION_PORTRAIT){
-            moviesAdapter = MovieAdapter(movies, {movie:Movie->listenerTool?.managePortraitItemClick(movie)})
+            moviesAdapter = MovieAdapter({movie:Movie->listenerTool?.managePortraitItemClick(movie)})
             container.movie_list_rv.adapter = moviesAdapter as MovieAdapter
+
+            movieViewModel.getAllPeliculas().observe(this, Observer { movies ->
+                movies?.let {moviesAdapter.changeDataSet(it)}
+            })
         }
         if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-            moviesAdapter = MovieSimpleListAdapter(movies, {movie:Movie->listenerTool?.manageLandscapeItemClick(movie)})
+            moviesAdapter = MovieSimpleListAdapter({movie:Movie->listenerTool?.manageLandscapeItemClick(movie)})
             container.movie_list_rv.adapter = moviesAdapter as MovieSimpleListAdapter
+
+            movieViewModel.getAllPeliculas().observe(this, Observer { movies ->
+                movies?.let {moviesAdapter.changeDataSet(it)}
+            })
         }
 
         container.movie_list_rv.apply {

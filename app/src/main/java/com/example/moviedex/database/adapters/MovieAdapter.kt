@@ -9,8 +9,11 @@ import com.example.moviedex.database.MyMovieAdapter
 import com.example.moviedex.database.entities.Movie
 import kotlinx.android.synthetic.main.cardview_movie.view.*
 
-class MovieAdapter(var movies: List<Movie>, val clickListener: (Movie) -> Unit): RecyclerView.Adapter<MovieAdapter.ViewHolder>(),
+class MovieAdapter(val clickListener: (Movie) -> Unit): RecyclerView.Adapter<MovieAdapter.ViewHolder>(),
     MyMovieAdapter {
+
+    private var movies = emptyList<Movie>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_movie, parent, false)
         return ViewHolder(view)
