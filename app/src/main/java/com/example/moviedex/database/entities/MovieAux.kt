@@ -2,13 +2,12 @@ package com.example.moviedex.database.entities
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
-@Entity(tableName = "movie_table")
-data class Movie(
+@Entity(tableName = "movie_aux")
+data class MovieAux(
     var Title : String = "N/A",
     var Year : String = "N/A",
     var Released : String = "N/A",
@@ -19,6 +18,8 @@ data class Movie(
     @field:Json(name = "Actors")
     var Actors : String = "N/A",
     var Plot : String = "N/A",
+   // @field:Json(name = "imdbID")
+   // var imdbID : String = "N/A",
     var Language : String = "N/A",
     var imdbRating : String = "N/A",
     var Poster : String = "N/A"
@@ -61,15 +62,13 @@ data class Movie(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Movie> {
-        override fun createFromParcel(parcel: Parcel): Movie {
-            return Movie(parcel)
+    companion object CREATOR : Parcelable.Creator<MovieAux> {
+        override fun createFromParcel(parcel: Parcel): MovieAux {
+            return MovieAux(parcel)
         }
 
-        override fun newArray(size: Int): Array<Movie?> {
+        override fun newArray(size: Int): Array<MovieAux?> {
             return arrayOfNulls(size)
         }
     }
-
-
 }

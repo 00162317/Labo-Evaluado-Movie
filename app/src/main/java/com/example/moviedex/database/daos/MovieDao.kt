@@ -13,6 +13,8 @@ interface MovieDao {
     fun getAllMovies() : LiveData<List<Movie>>
 
     @Insert
-    suspend fun insert(movie : Movie)
+    suspend fun insert(movie : Movie?)
 
+    @Query("DELETE FROM movie_table")
+    suspend fun eraseable()
 }
