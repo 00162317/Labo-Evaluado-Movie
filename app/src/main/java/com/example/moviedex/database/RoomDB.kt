@@ -31,7 +31,7 @@ abstract class RoomDB:RoomDatabase() {
                 val instance = Room
                     .databaseBuilder(context,RoomDB::class.java,"movie_table")
                     .fallbackToDestructiveMigration() //por si matan la db, este metodo sirve solo es de ponerle un numero mas alto a la version
-                    .addCallback(MovieDatabaseCallback(scope))
+                    //.addCallback(MovieDatabaseCallback(scope))
                     .build()
                 INSTANCE=instance
                 return instance
@@ -58,9 +58,9 @@ abstract class RoomDB:RoomDatabase() {
         suspend fun populateDatabase(movieDao: MovieDao) {
             // Popular la base de manera manual para pruebas
 
-            var movie1 = Movie("Avengers","", "", "", "", "", ""
-            ," ", " ", "", "")
-            movieDao.insert(movie1)
+            //var movie1 = Movie("Avengers","", "", "", "", "", ""
+            //," ", " ", "", "")
+            //movieDao.insert(movie1)
 
         }
     }

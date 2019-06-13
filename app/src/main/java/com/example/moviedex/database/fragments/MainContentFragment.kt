@@ -41,6 +41,8 @@ class MainContentFragment: Fragment() {
         view.released_main_content_fragment.text = movie.Released
         view.genre_main_content_fragment.text = movie.Genre
         view.runtime_main_content_fragment.text = movie.Runtime
+        view.director_main_content_fragment.text = movie.Director
+        view.actors_main_content_fragment.text = movie.Actors
         Glide.with(view).load(movie.Poster)
             .placeholder(R.drawable.ic_launcher_background)
             .into(view.image_main_content_fragment)

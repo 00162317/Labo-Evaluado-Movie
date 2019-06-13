@@ -5,6 +5,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
 
 @Entity(tableName = "movie_table")
 data class Movie(
@@ -13,7 +14,9 @@ data class Movie(
     var Released : String = "N/A",
     var Runtime : String = "N/A",
     var Genre : String = "N/A",
+    @field:Json(name = "Director")
     var Director : String = "N/A",
+    @field:Json(name = "Actors")
     var Actors : String = "N/A",
     var Plot : String = "N/A",
     var Language : String = "N/A",

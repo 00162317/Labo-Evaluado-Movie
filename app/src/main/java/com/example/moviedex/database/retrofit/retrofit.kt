@@ -1,5 +1,6 @@
 package com.example.moviedex.database.retrofit
 
+import com.example.moviedex.database.entities.Movie
 import com.example.moviedex.database.entities.retrof
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -15,7 +16,7 @@ interface retrofit {
     fun obtainMovies(@Query("s")clue:String, @Query("apikey")apikey:String): Deferred<Response<retrof>>
 
     @GET("/")
-    fun obtainMovieByName(@Query("t")clue:String, @Query("apikey")apikey:String): Deferred<Response<retrof>>
+    fun obtainMovieByName(@Query("t")clue:String, @Query("apikey")apikey:String): Deferred<Response<Movie>>
 
     companion object{
         fun getConcidences(): retrofit{

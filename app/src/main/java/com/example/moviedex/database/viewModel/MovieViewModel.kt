@@ -27,7 +27,8 @@ class MovieViewModel(application: Application):AndroidViewModel(application){
         if(response.isSuccessful) with(response){
             this.body()?.let {
                 it.Busqueda.forEach {
-                    this@MovieViewModel.insert(it)
+                    retrieveOneMovie(it.Title)
+                    //this@MovieViewModel.insert(it)
                 }
             }
         } else with(response){
@@ -42,12 +43,7 @@ class MovieViewModel(application: Application):AndroidViewModel(application){
     fun retrieveOneMovie(search: String) = viewModelScope.launch {
         val response = repoMovie!!.retrieverepoOneMovie(search).await()
         if(response.isSuccessful) with(response){
-            this.body()?.let {
-                it.Busqueda.forEach {
-                    this@MovieViewModel.insert(it)
-                    Log.d("Data", it.toString())
-                }
-            }
+            this@MovieViewModel.insert(this.body())
         } else with(response){
             when(this.code()){
                 404-> {
@@ -61,7 +57,7 @@ class MovieViewModel(application: Application):AndroidViewModel(application){
     }
 
     //TODO: Insertar
-    fun insert(peli:Movie)=viewModelScope.launch(Dispatchers.IO){
+    fun insert(peli:Movie?)=viewModelScope.launch(Dispatchers.IO){
         repoMovie!!.insertMovie(peli)
     }
     //TODO: Mostrar

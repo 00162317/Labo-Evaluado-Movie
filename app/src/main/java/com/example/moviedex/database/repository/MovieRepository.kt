@@ -16,7 +16,7 @@ class MovieRepository(private val movieDao:MovieDao){
         return retrofit.getConcidences().obtainMovies(eje,apiK)
     }
 
-    fun retrieverepoOneMovie(eje:String) : Deferred<Response<retrof>> {
+    fun retrieverepoOneMovie(eje:String) : Deferred<Response<Movie>> {
         val apiK = "55b38c32"
         return retrofit.getConcidences().obtainMovieByName(eje,apiK)
     }
@@ -24,5 +24,5 @@ class MovieRepository(private val movieDao:MovieDao){
     fun getAllMovies():LiveData<List<Movie>> = movieDao.getAllMovies()
 
     @WorkerThread
-    suspend fun insertMovie(pelicula:Movie)=movieDao.insert((pelicula))
+    suspend fun insertMovie(pelicula:Movie?)=movieDao.insert((pelicula))
 }
