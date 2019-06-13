@@ -1,6 +1,7 @@
 package com.example.moviedex.database.viewModel
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -33,6 +34,27 @@ class MovieViewModel(application: Application):AndroidViewModel(application){
             when(this.code()){
                 404-> {
                     Toast.makeText(getApplication(), "Murio", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    fun retrieveOneMovie(search: String) = viewModelScope.launch {
+        val response = repoMovie!!.retrieverepoOneMovie(search).await()
+        if(response.isSuccessful) with(response){
+            this.body()?.let {
+                it.Busqueda.forEach {
+                    this@MovieViewModel.insert(it)
+                    Log.d("Data", it.toString())
+                }
+            }
+        } else with(response){
+            when(this.code()){
+                404-> {
+                    Toast.makeText(getApplication(), "Murio", Toast.LENGTH_SHORT).show()
+                }
+                else ->{
+                    Toast.makeText(getApplication(), "Murio x2", Toast.LENGTH_SHORT).show()
                 }
             }
         }

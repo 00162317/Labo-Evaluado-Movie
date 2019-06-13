@@ -13,6 +13,10 @@ const val PELIS_DB = "http://www.omdbapi.com/"
 interface retrofit {
     @GET("/")
     fun obtainMovies(@Query("s")clue:String, @Query("apikey")apikey:String): Deferred<Response<retrof>>
+
+    @GET("/")
+    fun obtainMovieByName(@Query("t")clue:String, @Query("apikey")apikey:String): Deferred<Response<retrof>>
+
     companion object{
         fun getConcidences(): retrofit{
             return Retrofit.Builder().baseUrl(PELIS_DB).addConverterFactory(MoshiConverterFactory.create())

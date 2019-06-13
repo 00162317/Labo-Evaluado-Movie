@@ -30,10 +30,11 @@ class MainListFragment: Fragment(){
     private lateinit var movieViewModel: MovieViewModel
     private lateinit var moviesAdapter : MyMovieAdapter
     var listenerTool :  SearchNewMovieListener? = null
+    private lateinit var mainContentFragment: MainContentFragment
+
 
     //Habia hecho una lista para probarlo
     private val movies_prueba : ArrayList<String> = arrayListOf("Matrix", "Avengers","Toy Story 1","Toy Story 2", "Toy Story 3", "Aladdin", "Alicia en el pais de las maravillas")
-
 
     companion object {
         fun newInstance(dataset : ArrayList<Movie>): MainListFragment{
@@ -61,15 +62,9 @@ class MainListFragment: Fragment(){
         }
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
 
-        //En los videos el manejo de autocompletar lo hacian en el MainActivity pero como estamos ocupando fragmentos
-        // no se si eso afectara, pero por eso lo puse en el onCreateView del fragmento
-
-        //En el xml de este fragmento en ves de editText es AutoCompleteTextView y lo cambie a eso para que funcionara
-        //Ya estan puestos los permisos para verificar si hay internet o no
-
-        //val adapter1: ArrayAdapter<String> = ArrayAdapter(view, android.R.layout.simple_list_item_1, movies_prueba)
-        //Log.d("Lista", movies_prueba.toString())
-        //movie_name_et_.setAdapter(adapter1) //Esto da nulo :/
+        movieViewModel.getAllPeliculas().observe(this, Observer { movies ->
+            movies?.let {moviesAdapter.changeDataSet(it)}
+        })
 
         // Creo que esto no funciona mas por el ROOM if(savedInstanceState != null) movies = savedInstanceState.getParcelableArrayList<Movie>(AppConstants.MAIN_LIST_KEY)!!
 
@@ -108,6 +103,7 @@ class MainListFragment: Fragment(){
     fun initSearchButton(container:View) = container.add_movie_btn.setOnClickListener {
         //listenerTool?.searchMovie(movie_name_et_.text.toString())
         movieViewModel.retrieveMovie(movie_name_et_.text.toString())
+        //movieViewModel.retrieveOneMovie(movie_name_et_.text.toString())
     }
 
     fun updateMoviesAdapter(movieList: ArrayList<Movie>){ moviesAdapter.changeDataSet(movieList) }
