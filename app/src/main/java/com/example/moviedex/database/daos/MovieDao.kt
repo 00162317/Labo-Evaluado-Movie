@@ -15,4 +15,6 @@ interface MovieDao {
     @Insert
     suspend fun insert(movie : Movie?)
 
+    @Query("DELETE FROM movie_table")
+    suspend fun eraseable()
 }

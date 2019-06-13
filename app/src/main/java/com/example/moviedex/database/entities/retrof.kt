@@ -6,7 +6,7 @@ data class retrof(
     @field:Json(name = "Response")
     var Respuesta:String,
     @field:Json(name = "Search")
-    var Busqueda: List<Movie>,
+    var Busqueda: List<MovieAux2>,
     @field:Json(name = "Result")
     var Resultado:String
 ) {
